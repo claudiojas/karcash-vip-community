@@ -46,6 +46,10 @@ O desenvolvimento será dividido em **Sprints de 14 dias**, focando em performan
 
 ### Motivações de Mudanças
 
+#### 27/01/2026 - Refatoração da Estrutura de Layout
+- **Motivação:** Garantir uma estrutura de layout consistente e centralizada em toda a aplicação, evitando duplicação de componentes como Header e Footer em cada página.
+- **Impacto:** Criação do componente `MainLayout.tsx` que agora envolve as rotas principais. O `Header` foi modificado para ocultar condicionalmente os botões de CTA na página de checkout, melhorando a experiência do usuário. As páginas `Index` e `Checkout` foram refatoradas para remover seus componentes locais de header/footer, passando a usar a estrutura global.
+
 #### 26/01/2026 - Geração inicial do arquivo `PROGRESS_KARCASH.md`
 - **Motivação:** Necessidade de documentar o estado atual do projeto KarCash, listando o que já foi desenvolvido e o que ainda precisa ser feito, para servir como guia e registro de progresso.
 - **Impacto:** Criação do `PROGRESS_KARCASH.md` detalhando as entregas da Sprint 1 (Landing Page, Checkout e Modal de Cancelamento) e os itens pendentes das próximas sprints (integração backend, pagamentos, automação, etc.).
