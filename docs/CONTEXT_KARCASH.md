@@ -42,4 +42,10 @@ O desenvolvimento será dividido em **Sprints de 14 dias**, focando em performan
 - **Sprint 3 (Dias 11-14):** Automações de E-mail, Fluxo de Retenção e Deploy Final.
 
 ---
-*Documentação atualizada em: 25/01/2026*
+*Documentação atualizada em: 26/01/2026*
+
+### Motivações de Mudanças
+
+#### 26/01/2026 - Geração inicial do arquivo `PROGRESS_KARCASH.md`
+- **Motivação:** Necessidade de documentar o estado atual do projeto KarCash, listando o que já foi desenvolvido e o que ainda precisa ser feito, para servir como guia e registro de progresso.
+- **Impacto:** Criação do `PROGRESS_KARCASH.md` detalhando as entregas da Sprint 1 (Landing Page, Checkout e Modal de Cancelamento) e os itens pendentes das próximas sprints (integração backend, pagamentos, automação, etc.).
