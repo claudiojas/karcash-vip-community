@@ -1,3 +1,4 @@
+import KarcashLogo from '@/assets/logo_karcash-removebg_1.webp';
 import { useState } from "react";
 import { Instagram, MessageCircle } from "lucide-react";
 import { CancellationModal } from "./CancellationModal";
@@ -20,14 +21,9 @@ export const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
             {/* Left - Logo & Tagline */}
             <div className="flex flex-col items-center md:items-start gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                  <span className="font-display font-bold text-primary-foreground text-lg">KC</span>
-                </div>
-                <span className="font-display font-bold text-xl text-foreground">
-                  Kar<span className="text-primary">Cash</span>
-                </span>
-              </div>
+              <a href="/" className="flex items-center">
+                <img src={KarcashLogo} alt="KarCash Logo" className="h-10 w-auto" />
+              </a>
               <p className="text-muted-foreground text-sm text-center md:text-left">
                 Transformando oportunidades em lucro real.
               </p>
