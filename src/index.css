@@ -9,7 +9,7 @@
 @layer base {
   :root {
     /* Core Brand Colors - KarCash Visual Identity */
-    --background: 0 0% 3%; /* Quase preto para o fundo */
+    --background: 176 80% 7%; /* Quase preto para o fundo */
     --foreground: 0 0% 98%; /* Branco para textos */
 
     --card: 0 0% 5%; /* Cinza escuro para cards */
@@ -53,7 +53,7 @@
     --shadow-glow-green: 0 0 40px hsl(var(--primary) / 0.4);
     --shadow-card: 0 25px 50px -12px hsl(0 0% 0% / 0.6);
     --shadow-elevated: 0 20px 40px -15px hsl(0 0% 0% / 0.5);
-
+    
     /* Typography */
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
