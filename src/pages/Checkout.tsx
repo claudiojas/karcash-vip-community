@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import InputMask from "react-input-mask";
+import { supabase } from "@/lib/supabaseClient"; // Importa o cliente Supabase
+import { Toaster, toast } from 'sonner'; // Importa o sistema de toasts
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,32 +26,62 @@ const formSchema = z.object({
   phone: z.string().refine((val) => val.replace(/\D/g, '').length >= 10, {
     message: "O telefone deve ter pelo menos 10 dígitos.",
   }),
-  cpf: z.string().refine((val) => val.replace(/\D/g, '').length >= 11, {
-    message: "O CPF/CNPJ deve ter pelo menos 11 dígitos.",
-  }),
 });
 
 const Checkout = () => {
+  const [isLoading, setIsLoading] = useState(false); // Estado de loading
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: "onChange", // Valida no momento da alteração
+    mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
       phone: "",
-      cpf: "",
     },
   });
 
   const { isValid } = form.formState;
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Lógica de envio do formulário
-    console.log(values);
-    // Aqui você redirecionaria para a página de pagamento (Asaas, Mercado Pago)
-  }
+      async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsLoading(true);
+        setTimeout(() => toast.info("Enviando seus dados..."), 0);
+
+        try {
+          const { error } = await supabase
+            .from('profiles')
+            .insert({
+              name: values.name,
+              email: values.email,
+              phone: values.phone.replace(/\D/g, '') || null,
+            });
+
+          if (error) {
+            // Lança o erro para ser pego pelo bloco catch
+            throw error;
+          }
+
+          setTimeout(() => {
+            toast.success("Seus dados foram salvos! Redirecionando...");
+          }, 0);
+          
+          // Lógica de redirecionamento futuro
+          // setTimeout(() => {
+          //   window.location.href = 'https://link-de-pagamento.com';
+          // }, 1000); // Adiciona um pequeno delay antes de redirecionar
+
+        } catch (error) {
+          console.error('Erro ao inserir no Supabase:', error);
+          setTimeout(() => {
+            toast.error("Ocorreu um erro ao salvar seus dados.");
+          }, 0);
+        } finally {
+          setIsLoading(false);
+        }
+      }
 
   return (
+    <>
+    <Toaster richColors position="top-center" />
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="bg-card border-b border-border py-4">
@@ -125,6 +158,7 @@ const Checkout = () => {
                             placeholder="Seu nome completo" 
                             {...field}
                             className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            disabled={isLoading}
                           />
                         </FormControl>
                         <FormMessage />
@@ -143,6 +177,7 @@ const Checkout = () => {
                             placeholder="seu@email.com" 
                             {...field} 
                             className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            disabled={isLoading}
                           />
                         </FormControl>
                         <FormMessage />
@@ -160,6 +195,7 @@ const Checkout = () => {
                             mask="(99) 99999-9999"
                             value={field.value}
                             onChange={field.onChange}
+                            disabled={isLoading}
                           >
                             {(inputProps: any) => (
                               <Input
@@ -175,31 +211,7 @@ const Checkout = () => {
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="cpf"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground mb-2 block">CPF ou CNPJ</FormLabel>
-                        <FormControl>
-                           <InputMask
-                            mask="999.999.999-99"
-                            value={field.value}
-                            onChange={field.onChange}
-                          >
-                            {(inputProps: any) => (
-                              <Input
-                                {...inputProps}
-                                placeholder="000.000.000-00"
-                                className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                              />
-                            )}
-                          </InputMask>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+
 
                   <motion.div
                     initial={false}
@@ -210,13 +222,13 @@ const Checkout = () => {
                     <Button
                       type="submit"
                       className={`w-full py-4 h-auto rounded-xl font-display font-bold text-lg transition-all ${
-                        isValid
+                        isValid && !isLoading
                           ? "btn-primary-cta"
                           : "bg-muted text-muted-foreground cursor-not-allowed"
                       }`}
-                      disabled={!isValid}
+                      disabled={!isValid || isLoading}
                     >
-                      GARANTIR MEU ACESSO VIP
+                      {isLoading ? "SALVANDO..." : "GARANTIR MEU ACESSO VIP"}
                     </Button>
                   </motion.div>
                 </form>
@@ -251,6 +263,7 @@ const Checkout = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

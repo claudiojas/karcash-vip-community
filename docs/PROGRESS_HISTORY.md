@@ -41,3 +41,33 @@ Foi realizada uma refatoração completa no formulário de checkout para aumenta
 -   `@types/react-input-mask` (dev)
 
 ---
+
+### **Data:** 28/01/2026
+### **Responsável:** Gemi & Cláudio
+
+#### **Módulo Afetado:**
+-   `src/pages/Checkout.tsx` (Formulário de Checkout)
+-   `src/lib/supabaseClient.ts`
+-   Configuração de Banco de Dados e Políticas do Supabase
+
+#### **Descrição da Alteração:**
+Integração do formulário de checkout com o backend do Supabase para persistir os dados dos leads. O processo envolveu uma depuração significativa para resolver um erro persistente de política de segurança (RLS).
+
+#### **Justificativa Técnica e de Produto:**
+
+1.  **Remoção do Campo CPF/CNPJ**:
+    *   **Problema**: O formulário solicitava um dado sensível (CPF) muito cedo no funil, o que poderia aumentar a fricção e diminuir a taxa de conversão.
+    *   **Solução**: Removemos o campo CPF do formulário de checkout (`Checkout.tsx`), do schema de validação (`zod`) e da chamada para o Supabase. A coleta deste dado foi delegada para o gateway de pagamento, que é o ambiente apropriado.
+    *   **Benefício**: Formulário mais enxuto e rápido de preencher, aumentando a probabilidade de captura do lead. Redução da responsabilidade sobre dados sensíveis (LGPD).
+
+2.  **Resolução de Erro de RLS (`Row Level Security`)**:
+    *   **Problema**: Mesmo com a política `Allow anon insert` configurada no Supabase, a inserção de dados falhava com o erro `new row violates row-level security policy`.
+    *   **Diagnóstico**: Após extensa depuração (verificação de chaves de API, reinicialização de servidor, etc.), descobrimos que a causa raiz era uma chamada `.select()` encadeada à operação `.insert()` no código do frontend.
+    *   **Causa Raiz**: O `.select()` tentava ler a linha recém-inserida, mas a política de RLS do banco de dados **corretamente negava** a permissão de leitura (`SELECT`) para usuários anônimos. A operação inteira falhava por causa da parte de leitura, não da de inserção.
+    *   **Solução**: Removemos a chamada `.select()` da query do `supabase-js`, resultando em uma operação de "insert puro", que é permitida pela política de RLS.
+    *   **Benefício**: A integração com o Supabase agora funciona corretamente, respeitando as políticas de segurança robustas que foram definidas (permitir apenas inserção e negar leitura, atualização e deleção para usuários públicos).
+
+3.  **Melhoria do Feedback de UX e Código**:
+    *   **Solução**: Envolvemos as chamadas da biblioteca de notificações (`sonner`) em `setTimeout(..., 0)` para resolver um aviso comum do React sobre atualizações de estado durante a renderização. A função `onSubmit` foi reestruturada para usar `try/catch/finally`, melhorando o controle sobre o estado de `loading` e o tratamento de erros.
+
+---
