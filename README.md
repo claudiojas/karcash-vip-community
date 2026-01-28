@@ -15,6 +15,9 @@ Este projeto foi construído com uma stack moderna e performática, focada em um
 -   **[Shadcn/UI](https://ui.shadcn.com/)**: Coleção de componentes de UI reusáveis.
 -   **[Framer Motion](https://www.framer.com/motion/)**: Biblioteca para animações complexas e fluidas.
 -   **[Lucide React](https://lucide.dev/)**: Biblioteca de ícones open-source.
+-   **[Zod](https://zod.dev/)**: Biblioteca de validação de esquemas para TypeScript.
+-   **[React Hook Form](https://react-hook-form.com/)**: Biblioteca para gerenciamento de formulários em React.
+-   **[React Input Mask](https://github.com/sanniassin/react-input-mask)**: Componente de máscara de input para React.
 
 ## ⚙️ Como Executar o Projeto Localmente
 

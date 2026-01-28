@@ -1,47 +1,52 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Shield, Lock, Check } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import InputMask from "react-input-mask";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+// Schema de validação com Zod
+const formSchema = z.object({
+  name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres." }),
+  email: z.string().email({ message: "Por favor, insira um e-mail válido." }),
+  phone: z.string().refine((val) => val.replace(/\D/g, '').length >= 10, {
+    message: "O telefone deve ter pelo menos 10 dígitos.",
+  }),
+  cpf: z.string().refine((val) => val.replace(/\D/g, '').length >= 11, {
+    message: "O CPF/CNPJ deve ter pelo menos 11 dígitos.",
+  }),
+});
 
 const Checkout = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    cpf: "",
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: "onChange", // Valida no momento da alteração
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      cpf: "",
+    },
   });
 
-  const [isValid, setIsValid] = useState(false);
+  const { isValid } = form.formState;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const newFormData = { ...formData, [name]: value };
-    setFormData(newFormData);
-    
-    // Check if all fields are filled
-    setIsValid(
-      newFormData.name.length > 2 &&
-      newFormData.email.includes("@") &&
-      newFormData.phone.length >= 10 &&
-      newFormData.cpf.length >= 11
-    );
-  };
-
-  const formatPhone = (value: string) => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length <= 2) return numbers;
-    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
-    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
-  };
-
-  const formatCPF = (value: string) => {
-    const numbers = value.replace(/\D/g, "");
-    if (numbers.length <= 3) return numbers;
-    if (numbers.length <= 6) return `${numbers.slice(0, 3)}.${numbers.slice(3)}`;
-    if (numbers.length <= 9) return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6)}`;
-    return `${numbers.slice(0, 3)}.${numbers.slice(3, 6)}.${numbers.slice(6, 9)}-${numbers.slice(9, 11)}`;
-  };
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Lógica de envio do formulário
+    console.log(values);
+    // Aqui você redirecionaria para a página de pagamento (Asaas, Mercado Pago)
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -107,87 +112,115 @@ const Checkout = () => {
                 Seus Dados
               </h2>
 
-              <form className="space-y-5">
-                <div>
-                  <Label htmlFor="name" className="text-foreground mb-2 block">
-                    Nome Completo
-                  </Label>
-                  <Input
-                    id="name"
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                  <FormField
+                    control={form.control}
                     name="name"
-                    type="text"
-                    placeholder="Seu nome completo"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground mb-2 block">Nome Completo</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Seu nome completo" 
+                            {...field}
+                            className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-
-                <div>
-                  <Label htmlFor="email" className="text-foreground mb-2 block">
-                    E-mail
-                  </Label>
-                  <Input
-                    id="email"
+                  <FormField
+                    control={form.control}
                     name="email"
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground mb-2 block">E-mail</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="email"
+                            placeholder="seu@email.com" 
+                            {...field} 
+                            className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-
-                <div>
-                  <Label htmlFor="phone" className="text-foreground mb-2 block">
-                    WhatsApp (com DDD)
-                  </Label>
-                  <Input
-                    id="phone"
+                  <FormField
+                    control={form.control}
                     name="phone"
-                    type="tel"
-                    placeholder="(00) 00000-0000"
-                    value={formatPhone(formData.phone)}
-                    onChange={(e) => handleChange({ 
-                      ...e, 
-                      target: { ...e.target, name: "phone", value: e.target.value.replace(/\D/g, "") } 
-                    })}
-                    className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground mb-2 block">WhatsApp (com DDD)</FormLabel>
+                        <FormControl>
+                          <InputMask
+                            mask="(99) 99999-9999"
+                            value={field.value}
+                            onChange={field.onChange}
+                          >
+                            {(inputProps: any) => (
+                              <Input
+                                {...inputProps}
+                                type="tel"
+                                placeholder="(00) 00000-0000"
+                                className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                              />
+                            )}
+                          </InputMask>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-
-                <div>
-                  <Label htmlFor="cpf" className="text-foreground mb-2 block">
-                    CPF ou CNPJ
-                  </Label>
-                  <Input
-                    id="cpf"
+                  <FormField
+                    control={form.control}
                     name="cpf"
-                    type="text"
-                    placeholder="000.000.000-00"
-                    value={formatCPF(formData.cpf)}
-                    onChange={(e) => handleChange({ 
-                      ...e, 
-                      target: { ...e.target, name: "cpf", value: e.target.value.replace(/\D/g, "") } 
-                    })}
-                    className="bg-input border-border text-foreground placeholder:text-muted-foreground"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground mb-2 block">CPF ou CNPJ</FormLabel>
+                        <FormControl>
+                           <InputMask
+                            mask="999.999.999-99"
+                            value={field.value}
+                            onChange={field.onChange}
+                          >
+                            {(inputProps: any) => (
+                              <Input
+                                {...inputProps}
+                                placeholder="000.000.000-00"
+                                className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                              />
+                            )}
+                          </InputMask>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <motion.button
-                  type="button"
-                  className={`w-full py-4 rounded-xl font-display font-bold text-lg transition-all ${
-                    isValid
-                      ? "btn-primary-cta"
-                      : "bg-muted text-muted-foreground cursor-not-allowed"
-                  }`}
-                  disabled={!isValid}
-                  whileHover={isValid ? { scale: 1.02 } : {}}
-                  whileTap={isValid ? { scale: 0.98 } : {}}
-                >
-                  PRÓXIMO
-                </motion.button>
-              </form>
+                  <motion.div
+                    initial={false}
+                    animate={isValid ? { opacity: 1, y: 0 } : { opacity: 0.5, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full"
+                  >
+                    <Button
+                      type="submit"
+                      className={`w-full py-4 h-auto rounded-xl font-display font-bold text-lg transition-all ${
+                        isValid
+                          ? "btn-primary-cta"
+                          : "bg-muted text-muted-foreground cursor-not-allowed"
+                      }`}
+                      disabled={!isValid}
+                    >
+                      GARANTIR MEU ACESSO VIP
+                    </Button>
+                  </motion.div>
+                </form>
+              </Form>
             </div>
 
             {/* Trust badges */}
