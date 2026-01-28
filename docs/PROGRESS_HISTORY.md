@@ -71,3 +71,21 @@ Integração do formulário de checkout com o backend do Supabase para persistir
     *   **Solução**: Envolvemos as chamadas da biblioteca de notificações (`sonner`) em `setTimeout(..., 0)` para resolver um aviso comum do React sobre atualizações de estado durante a renderização. A função `onSubmit` foi reestruturada para usar `try/catch/finally`, melhorando o controle sobre o estado de `loading` e o tratamento de erros.
 
 ---
+
+## Próximas Tarefas Sugeridas (Baseado no MVP)
+
+Com a captura de leads via formulário de checkout e persistência no Supabase funcionando, as próximas etapas focam em automatizar o funil e implementar a inteligência de retenção, conforme o `CONTEXT_KARCASH.md`.
+
+1.  **Automação de Entrega**:
+    *   **Objetivo**: Garantir que, após a submissão bem-sucedida do formulário e o pagamento (em uma etapa posterior), o usuário receba automaticamente o acesso VIP.
+    *   **Subtarefas**:
+        *   Implementar o redirecionamento para o **Grupo VIP** pós-pagamento.
+        *   Configurar o envio de **e-mail de boas-vindas** com o link de acesso e as instruções necessárias.
+    *   **Ferramentas Potenciais**: Supabase Edge Functions (para automação de e-mails via SendGrid/Resend) ou um serviço de automação de marketing.
+
+2.  **Inteligência de Retenção**:
+    *   **Objetivo**: Entender os motivos pelos quais os usuários cancelam a assinatura para melhorar a oferta e reduzir o churn.
+    *   **Subtarefas**:
+        *   Desenvolver o **fluxo de cancelamento** (ex: uma página ou modal específico).
+        *   Implementar a **coleta de feedback** no momento do cancelamento (motivos, sugestões).
+        *   Persistir esses dados na tabela `churn_feedback` no Supabase.
