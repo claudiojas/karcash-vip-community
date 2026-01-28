@@ -100,8 +100,8 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-block px-4 py-2 mb-6 text-sm font-medium text-gold bg-gold/10 rounded-full border border-gold/20">
-                  🔥 +5.000 membros lucram conosco
+                <span className="inline-block px-4 py-2 mb-6 text-sm font-medium text-primary bg-primary/10 rounded-full border border-primary/20">
+                  🚀 LANÇAMENTO DO NOSSO SITE
                 </span>
               </motion.div>
 
@@ -111,9 +111,9 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                ACESSO EXCLUSIVO:{" "}
-                <span className="text-primary">CARROS ATÉ 50% ABAIXO DA FIPE.</span>{" "}
-                <span className="text-gold">LUCRE ALTO, RÁPIDO E SEGURO.</span>
+                PELA 1ª VEZ, ACESSO ABERTO:{" "}
+                <span className="text-primary">LUCRE DE R$10 MIL A R$50 MIL</span>{" "}
+                <span className="text-gold">POR VEÍCULO.</span>
               </motion.h1>
 
               <motion.p
@@ -122,8 +122,9 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Pare de perder dinheiro. Acesso imediato a 10 ofertas diárias que{" "}
-                <strong className="text-foreground">NINGUÉM mais tem</strong>. Exclusivo para membros VIP.
+                Acesso a um lote de veículos que você não encontra em leilões. 
+                Carros sem sinistro ou restrições, prontos para você comprar, 
+                arrumar e revender com lucro máximo.
               </motion.p>
 
               <motion.div
@@ -137,11 +138,11 @@ const Index = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    QUERO MEU ACESSO AGORA E COMEÇAR A LUCRAR!
+                    GARANTIR MINHA VAGA E COMEÇAR A LUCRAR!
                   </motion.button>
                 </a>
                 <p className="text-muted-foreground text-sm mt-4">
-                  ✓ Acesso imediato • ✓ Cancele quando quiser • ✓ Garantia de 7 dias
+                  ✓ Acesso imediato • ✓ Apenas 100 vagas • ✓ Cancele quando quiser
                 </p>
               </motion.div>
             </div>
@@ -220,7 +221,7 @@ const Index = () => {
             <StepCard
               number={1}
               title="Assine"
-              description="Garanta seu acesso exclusivo à comunidade KarCash por apenas R$ 49,90/mês."
+              description="Garanta seu acesso exclusivo à comunidade KarCash por apenas R$ 49,94/mês."
               icon={<CreditCard className="w-8 h-8" />}
               delay={0}
             />

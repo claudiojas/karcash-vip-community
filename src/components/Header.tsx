@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const isCheckoutPage = location.pathname === '/checkout';
+  // Hide buttons on checkout and success pages
+  const hideButtons = location.pathname === '/checkout' || location.pathname === '/obrigado';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -18,7 +19,7 @@ export const Header = () => {
         </a>
 
         {/* Desktop CTA - Conditional Rendering */}
-        {!isCheckoutPage && (
+        {!hideButtons && (
           <motion.a
             href="/checkout"
             className="hidden md:block btn-primary-cta text-sm py-3 px-6"
@@ -30,7 +31,7 @@ export const Header = () => {
         )}
 
         {/* Mobile menu button - Conditional Rendering */}
-        {!isCheckoutPage && (
+        {!hideButtons && (
           <button
             className="md:hidden text-foreground p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -41,7 +42,7 @@ export const Header = () => {
       </div>
 
       {/* Mobile menu - Conditional Rendering */}
-      {isMenuOpen && !isCheckoutPage && (
+      {isMenuOpen && !hideButtons && (
         <motion.div
           className="md:hidden bg-card border-t border-border p-4"
           initial={{ opacity: 0, y: -10 }}

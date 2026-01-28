@@ -42,16 +42,16 @@ export const PricingCard = () => {
         {/* Pricing */}
         <div className="mb-6">
           <p className="text-muted-foreground">
-            De <span className="line-through">R$ 199,90</span> por apenas
+            De <span className="line-through">R$ 499,94</span> por apenas
           </p>
           <div className="flex items-center justify-center gap-1 mt-2">
             <span className="text-2xl text-foreground font-medium">R$</span>
             <span className="text-6xl font-display font-bold text-primary">49</span>
-            <span className="text-2xl text-foreground font-medium">,90</span>
+            <span className="text-2xl text-foreground font-medium">,94</span>
             <span className="text-muted-foreground text-lg">/mês</span>
           </div>
           <p className="text-gold text-sm font-medium mt-2">
-            🔥 Economia de 75% - Oferta por tempo limitado!
+            🔥 Economia de 90% - Vagas de lançamento!
           </p>
         </div>
 

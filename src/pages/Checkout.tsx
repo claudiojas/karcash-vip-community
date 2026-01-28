@@ -44,35 +44,40 @@ const Checkout = () => {
 
       async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true);
-        setTimeout(() => toast.info("Enviando seus dados..."), 0);
+        setTimeout(() => toast.info("Processando sua inscrição..."), 0);
 
         try {
-          const { error } = await supabase
-            .from('profiles')
-            .insert({
-              name: values.name,
-              email: values.email,
-              phone: values.phone.replace(/\D/g, '') || null,
-            });
+          const { error } = await supabase.rpc('create_profile_and_subscription', {
+            user_name: values.name,
+            user_email: values.email,
+            user_phone: values.phone.replace(/\D/g, ''),
+          });
 
           if (error) {
             // Lança o erro para ser pego pelo bloco catch
             throw error;
           }
 
+          // A RPC foi bem-sucedida, agora redireciona para o pagamento
           setTimeout(() => {
-            toast.success("Seus dados foram salvos! Redirecionando...");
+            toast.success("Inscrição processada! Redirecionando para o pagamento...");
           }, 0);
           
-          // Lógica de redirecionamento futuro
-          // setTimeout(() => {
-          //   window.location.href = 'https://link-de-pagamento.com';
-          // }, 1000); // Adiciona um pequeno delay antes de redirecionar
+          setTimeout(() => {
+            window.location.href = 'https://mpago.la/2Xn5TQW';
+          }, 1000); // Adiciona um pequeno delay antes de redirecionar
 
         } catch (error) {
-          console.error('Erro ao inserir no Supabase:', error);
+          console.error('Erro ao chamar RPC ou inserir no Supabase:', error);
+          const errorMessage = (error as any).message || "Ocorreu um erro desconhecido.";
+          
+          let friendlyMessage = "Ocorreu um erro ao processar sua inscrição.";
+          if (errorMessage.includes("unique_profile_email")) {
+            friendlyMessage = "Este e-mail já está cadastrado em nosso sistema.";
+          }
+
           setTimeout(() => {
-            toast.error("Ocorreu um erro ao salvar seus dados.");
+            toast.error(friendlyMessage);
           }, 0);
         } finally {
           setIsLoading(false);
@@ -122,19 +127,19 @@ const Checkout = () => {
                   <p className="text-sm text-muted-foreground">Acesso ao grupo exclusivo</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-muted-foreground line-through text-sm">R$ 199,90</p>
-                  <p className="font-display font-bold text-xl text-primary">R$ 49,90</p>
+                  <p className="text-muted-foreground line-through text-sm">R$ 499,94</p>
+                  <p className="font-display font-bold text-xl text-primary">R$ 49,94</p>
                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-4">
                 <span className="font-medium text-foreground">Total:</span>
-                <span className="font-display font-bold text-2xl text-foreground">R$ 49,90</span>
+                <span className="font-display font-bold text-2xl text-foreground">R$ 49,94</span>
               </div>
 
               <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
                 <p className="text-sm text-primary font-medium text-center">
-                  🔥 Você está economizando R$ 150,00 (75% OFF)
+                  🔥 Você está economizando R$ 450,00 (90% OFF)
                 </p>
               </div>
             </div>
