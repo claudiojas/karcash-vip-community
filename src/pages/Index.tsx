@@ -3,9 +3,6 @@ import {
   CreditCard, 
   MessageCircle, 
   TrendingUp, 
-  Users, 
-  Car, 
-  DollarSign,
   Shield,
   Zap,
   Calendar,
@@ -22,6 +19,7 @@ import { StepCard } from "@/components/StepCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { PricingCard } from "@/components/PricingCard";
 import { FAQSection } from "@/components/FAQSection";
+import { HeroSection } from "@/components/HeroSection";
 
 const cars = [
   {
@@ -88,72 +86,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-4">
-            {/* Content */}
-            <div className="flex-1 text-center lg:text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <span className="inline-block px-4 py-2 mb-6 text-sm font-medium text-primary bg-primary/10 rounded-full border border-primary/20">
-                  🚀 LANÇAMENTO DO NOSSO SITE
-                </span>
-              </motion.div>
-
-              <motion.h1
-                className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                PELA 1ª VEZ, ACESSO ABERTO:{" "}
-                <span className="text-primary">LUCRE DE R$10 MIL A R$50 MIL</span>{" "}
-                <span className="text-gold">POR VEÍCULO.</span>
-              </motion.h1>
-
-              <motion.p
-                className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Acesso a um lote de veículos que você não encontra em leilões. 
-                Carros sem sinistro ou restrições, prontos para você comprar, 
-                arrumar e revender com lucro máximo.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <a href="/checkout">
-                  <motion.button
-                    className="btn-primary-cta text-base md:text-lg pulse-glow"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    GARANTIR MINHA VAGA E COMEÇAR A LUCRAR!
-                  </motion.button>
-                </a>
-                <p className="text-muted-foreground text-sm mt-4">
-                  ✓ Acesso imediato • ✓ Apenas 100 vagas • ✓ Cancele quando quiser
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Phone Mockup */}
-            <div className="flex-1 flex justify-center lg:justify-end">
-              <PhoneMockup />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Social Proof Stats */}
       <section className="py-16 bg-navy">

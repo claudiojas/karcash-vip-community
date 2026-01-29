@@ -7,6 +7,7 @@ import InputMask from "react-input-mask";
 import { supabase } from "@/lib/supabaseClient"; // Importa o cliente Supabase
 import { Toaster, toast } from 'sonner'; // Importa o sistema de toasts
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,6 +42,7 @@ const Checkout = () => {
   });
 
   const { isValid } = form.formState;
+  const navigate = useNavigate(); // Inicializa useNavigate
 
       async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsLoading(true);
@@ -58,13 +60,13 @@ const Checkout = () => {
             throw error;
           }
 
-          // A RPC foi bem-sucedida, agora redireciona para o pagamento
+          // A RPC foi bem-sucedida, redireciona para a página de obrigado
           setTimeout(() => {
-            toast.success("Inscrição processada! Redirecionando para o pagamento...");
+            toast.success("Inscrição processada! Redirecionando para a página de confirmação...");
           }, 0);
           
           setTimeout(() => {
-            window.location.href = 'https://mpago.la/2Xn5TQW';
+            navigate('/obrigado'); // Redireciona para a página de obrigado
           }, 1000); // Adiciona um pequeno delay antes de redirecionar
 
         } catch (error) {

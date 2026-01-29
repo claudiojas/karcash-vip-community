@@ -185,7 +185,7 @@ export const CancellationModal = ({ isOpen, onClose }: CancellationModalProps) =
                       </Button>
                       <Button
                         onClick={handleClose}
-                        className="w-full bg-primary hover:bg-primary/90"
+                        className="w-full btn-primary-cta"
                       >
                         Quero Continuar Membro VIP
                       </Button>
@@ -216,7 +216,7 @@ export const CancellationModal = ({ isOpen, onClose }: CancellationModalProps) =
                       </Button>
                       <Button
                         onClick={handleClose}
-                        className="w-full bg-primary hover:bg-primary/90"
+                        className="w-full btn-primary-cta"
                       >
                         Mudei de ideia, quero ficar!
                       </Button>

@@ -70,7 +70,7 @@ export const PricingCard = () => {
         {/* CTA */}
         <a href="/checkout" className="block">
           <motion.button
-            className="btn-primary-cta w-full pulse-glow"
+            className="btn-primary-cta w-full"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

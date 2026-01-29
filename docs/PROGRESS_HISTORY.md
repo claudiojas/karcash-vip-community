@@ -72,20 +72,53 @@ Integração do formulário de checkout com o backend do Supabase para persistir
 
 ---
 
-## Próximas Tarefas Sugeridas (Baseado no MVP)
+### **Data:** 28/01/2026
+### **Responsável:** Gemi & Cláudio
 
-Com a captura de leads via formulário de checkout e persistência no Supabase funcionando, as próximas etapas focam em automatizar o funil e implementar a inteligência de retenção, conforme o `CONTEXT_KARCASH.md`.
+#### **Módulo Afetado:**
+-   Estratégia Geral do Projeto
+-   `src/pages/Checkout.tsx`
+-   `src/pages/Success.tsx`
+-   Database (`profiles`, `subscriptions`)
 
-1.  **Automação de Entrega**:
-    *   **Objetivo**: Garantir que, após a submissão bem-sucedida do formulário e o pagamento (em uma etapa posterior), o usuário receba automaticamente o acesso VIP.
-    *   **Subtarefas**:
-        *   Implementar o redirecionamento para o **Grupo VIP** pós-pagamento.
-        *   Configurar o envio de **e-mail de boas-vindas** com o link de acesso e as instruções necessárias.
-    *   **Ferramentas Potenciais**: Supabase Edge Functions (para automação de e-mails via SendGrid/Resend) ou um serviço de automação de marketing.
+#### **Descrição da Alteração:**
+Pivotação estratégica do funil de vendas. O projeto deixa de ser um modelo de venda direta e passa a adotar uma estratégia de **pré-lançamento** para captura de leads, com base nos estudos da "Fórmula de Lançamento".
 
-2.  **Inteligência de Retenção**:
-    *   **Objetivo**: Entender os motivos pelos quais os usuários cancelam a assinatura para melhorar a oferta e reduzir o churn.
-    *   **Subtarefas**:
-        *   Desenvolver o **fluxo de cancelamento** (ex: uma página ou modal específico).
-        *   Implementar a **coleta de feedback** no momento do cancelamento (motivos, sugestões).
-        *   Persistir esses dados na tabela `churn_feedback` no Supabase.
+#### **Justificativa Técnica e de Produto:**
+
+1.  **Mudança de Estratégia (O Porquê):**
+    *   **Motivação:** A decisão, liderada pelo Cláudio, foi baseada na metodologia da "Fórmula de Lançamento" de Érico Rocha. O objetivo é construir audiência e expectativa antes de abrir o carrinho de compras, visando um pico de conversão no lançamento oficial, em vez de um crescimento linear e mais lento.
+    *   **Impacto:** O foco de curto prazo muda da **venda** para a **captura de leads**.
+
+2.  **Adaptação do Funil (O Que Mudou):**
+    *   O formulário da página `/checkout` foi reaproveitado para funcionar como a **página de captura de leads**.
+    *   A chamada à função `create_profile_and_subscription` no Supabase foi mantida, pois já salva o usuário com o status `pending`, o que é perfeito para um lead de pré-lançamento.
+    *   **O redirecionamento para o gateway de pagamento foi removido.** Após o cadastro, o usuário é agora direcionado para a página `/obrigado`.
+    *   A página `/obrigado` (`Success.tsx`) teve seu conteúdo alterado para refletir a inscrição em uma lista de espera VIP, e não uma compra concluída.
+
+3.  **Adiamento da Integração de Pagamento:**
+    *   **Motivação:** Como o foco imediato não é mais processar pagamentos, a escolha e integração de um gateway (Mercado Pago, Stripe, Asaas, etc.) e a implementação dos webhooks foram estrategicamente adiadas.
+    *   **Benefício:** Isso nos dá mais tempo para pesquisar e escolher a solução com o melhor custo-benefício e as menores taxas, sem apressar a decisão técnica.
+
+---
+
+## Próximas Tarefas Sugeridas (Estratégia de Lançamento)
+
+O próximo desafio é garantir que cada lead cadastrado receba uma confirmação imediata, iniciando o relacionamento com a audiência.
+
+1.  **Implementar E-mail de Confirmação de Inscrição:**
+    *   **Objetivo:** Enviar um e-mail de boas-vindas assim que o usuário se inscreve na lista VIP.
+    *   **Ferramenta Recomendada:** **Resend** ([resend.com](http://resend.com/)), pela integração nativa com Vercel/Supabase e plano gratuito robusto.
+    *   **LEMBRETE / Ação Necessária (Cláudio):**
+        1.  Criar uma conta gratuita no Resend.
+        2.  Verificar o domínio do projeto no painel do Resend (adicionar registros DNS).
+        3.  Gerar uma **API Key**.
+        4.  Adicionar a API Key aos "Secrets" do projeto no Supabase com o nome `RESEND_API_KEY`.
+    *   **Ação Necessária (Gemi):**
+        *   Após a API Key ser configurada, modificar a função `create_profile_and_subscription` para, além de salvar no banco, disparar o e-mail de boas-vindas usando a API do Resend.
+
+2.  **Pesquisar e Decidir sobre Gateway de Pagamento (Futuro):**
+    *   **Objetivo:** Analisar as principais opções do mercado para quando o "carrinho for aberto".
+    *   **Critérios:** Taxas (para PJ), facilidade de integração, confiabilidade e opções de pagamento oferecidas (Pix, Cartão, Boleto).
+    *   **Status:** Tarefa adiada, a ser retomada após a fase de captura de leads estar consolidada.
+
