@@ -23,34 +23,39 @@ import { HeroSection } from "@/components/HeroSection";
 import { OpportunitySection } from "@/components/OpportunitySection";
 
 
+import fiorinoImg from "@/assets/KARCASH_MODELOS/FIORINO_ENDURANCE/FIORINO_ENDURANCE.jpeg";
+import nivusImg from "@/assets/KARCASH_MODELOS/NIVUS_2024/NIVUS_2024.jpeg";
+import poloImg from "@/assets/KARCASH_MODELOS/POLO_2024/POLO_2024.jpeg";
+import betoneiraImg from "@/assets/KARCASH_MODELOS/VW26.2602023_BETONEIRA/VW26.2602023_BETONEIRA.jpeg";
+
 const cars = [
   {
-    name: "Honda Civic EXL",
-    year: "2022/2023",
-    fipePrice: 145000,
-    ourPrice: 98000,
-    image: "https://images.unsplash.com/photo-1606611013016-969c19ba27bb?w=500",
+    name: "Fiorino Endurance",
+    year: "2023",
+    fipePrice: 84208,
+    ourPrice: 54997,
+    image: fiorinoImg,
   },
   {
-    name: "Toyota Corolla XEI",
-    year: "2023/2023",
-    fipePrice: 165000,
-    ourPrice: 115000,
-    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=500",
+    name: "Nivus Confortline TSI",
+    year: "2024",
+    fipePrice: 106665,
+    ourPrice: 76997,
+    image: nivusImg,
   },
   {
-    name: "Hyundai HB20 Vision",
-    year: "2023/2024",
-    fipePrice: 78000,
-    ourPrice: 52000,
-    image: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=500",
+    name: "Polo Track 1.0",
+    year: "2024",
+    fipePrice: 69906,
+    ourPrice: 47997,
+    image: poloImg,
   },
   {
-    name: "Volkswagen T-Cross",
-    year: "2023/2023",
-    fipePrice: 135000,
-    ourPrice: 95000,
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500",
+    name: "VW 26.260 E Const 8x4",
+    year: "2023",
+    fipePrice: 680000,
+    ourPrice: 250997,
+    image: betoneiraImg,
   },
 ];
 

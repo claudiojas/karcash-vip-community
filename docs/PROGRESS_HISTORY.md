@@ -122,3 +122,76 @@ O próximo desafio é garantir que cada lead cadastrado receba uma confirmação
     *   **Critérios:** Taxas (para PJ), facilidade de integração, confiabilidade e opções de pagamento oferecidas (Pix, Cartão, Boleto).
     *   **Status:** Tarefa adiada, a ser retomada após a fase de captura de leads estar consolidada.
 
+---
+
+### **Data:** 04/02/2026
+### **Responsável:** Gemi
+
+#### **Módulo Afetado:**
+-   `src/components/*` (Landing Page Copy & UX)
+-   `src/repositories/subscriptionRepository.ts`
+-   `src/services/api.ts`
+-   `api/send-welcome-email.ts`
+
+#### **Descrição da Alteração:**
+Implementação completa do fluxo de e-mail de boas-vindas (Resend), refatoração arquitetural (Camadas de Serviço e Repositório) e uma reestruturação agressiva da Landing Page focada em conversão, utilizando Gatilhos Mentais baseados na psicologia de vendas.
+
+#### **Justificativa Técnica e de Produto:**
+
+1.  **Arquitetura Profissional (Service & Repository Pattern):**
+    *   **Problema:** A lógica de banco de dados e APIs estava misturada na UI (`Checkout.tsx`), dificultando testes e manutenção.
+    *   **Solução:** Criamos `subscriptionRepository.ts` para isolar o Supabase e `api.ts` para centralizar chamadas externas.
+    *   **Benefício:** Código desacoplado, limpo e pronto para escalar.
+
+2.  **Copywriting de Alta Conversão ("Os 21 Gatilhos"):**
+    *   **Objetivo:** Transformar a Landing Page em uma máquina de vendas, alinhada com a proposta de valor única do KarCash (Carros sem leilão/sinistro).
+    *   **Gatilhos Aplicados:**
+        *   **Hero Section:**
+            *   *Curiosidade & Exclusividade:* "Lucre em carros que Ninguém Mais tem acesso".
+            *   *Escassez:* "Vagas Limitadas para nova turma".
+        *   **Seção "O Segredo" (Nova):**
+            *   *Inimigo Comum:* Posicionamos o leilão tradicional (doc sujo) como o vilão.
+            *   *Razão e Porquê:* Explicamos a lógica financeira de comprar um carro "limpo" (100% FIPE) vs "sujo" (70% FIPE).
+            *   *Procedência:* Garantia de "Documento Sem Sinistro".
+        *   **Cards de Ofertas:**
+            *   *Ancoragem:* Preço FIPE (riscado) ao lado do Preço VIP.
+            *   *Especifidade:* Cálculo exato do lucro estimado (ex: "Margem: 32%").
+            *   *Antecipação:* Botão "Ver Detalhes" levando ao Checkout, simulando a posse.
+
+
+---
+
+### **Data:** 04/02/2026
+### **Responsável:** Gemi
+
+#### **Módulo Afetado:**
+-    (Landing Page Copy & UX)
+-   
+-   
+-   
+
+#### **Descrição da Alteração:**
+Implementação completa do fluxo de e-mail de boas-vindas (Resend), refatoração arquitetural (Camadas de Serviço e Repositório) e uma reestruturação agressiva da Landing Page focada em conversão, utilizando Gatilhos Mentais baseados na psicologia de vendas.
+
+#### **Justificativa Técnica e de Produto:**
+
+1.  **Arquitetura Profissional (Service & Repository Pattern):**
+    *   **Problema:** A lógica de banco de dados e APIs estava misturada na UI (), dificultando testes e manutenção.
+    *   **Solução:** Criamos  para isolar o Supabase e  para centralizar chamadas externas.
+    *   **Benefício:** Código desacoplado, limpo e pronto para escalar.
+
+2.  **Copywriting de Alta Conversão ("Os 21 Gatilhos"):**
+    *   **Objetivo:** Transformar a Landing Page em uma máquina de vendas, alinhada com a proposta de valor única do KarCash (Carros sem leilão/sinistro).
+    *   **Gatilhos Aplicados:**
+        *   **Hero Section:**
+            *   *Curiosidade & Exclusividade:* "Lucre em carros que Ninguém Mais tem acesso".
+            *   *Escassez:* "Vagas Limitadas para nova turma".
+        *   **Seção "O Segredo" (Nova):**
+            *   *Inimigo Comum:* Posicionamos o leilão tradicional (doc sujo) como o vilão.
+            *   *Razão e Porquê:* Explicamos a lógica financeira de comprar um carro "limpo" (100% FIPE) vs "sujo" (70% FIPE).
+            *   *Procedência:* Garantia de "Documento Sem Sinistro".
+        *   **Cards de Ofertas:**
+            *   *Ancoragem:* Preço FIPE (riscado) ao lado do Preço VIP.
+            *   *Especifidade:* Cálculo exato do lucro estimado (ex: "Margem: 32%").
+            *   *Antecipação:* Botão "Ver Detalhes" levando ao Checkout, simulando a posse.
+

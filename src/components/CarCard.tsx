@@ -80,10 +80,12 @@ export const CarCard = ({ name, year, fipePrice, ourPrice, image }: CarCardProps
           </p>
         </div>
 
-        <button className="w-full py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-colors border border-white/5 group-hover:border-primary/50 group-hover:text-primary flex items-center justify-center gap-2">
-          VER DETALHES DO LOTE
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </button>
+        <a href="/checkout" className="block w-full">
+          <button className="w-full py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-colors border border-white/5 group-hover:border-primary/50 group-hover:text-primary flex items-center justify-center gap-2">
+            VER DETALHES DO LOTE
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </a>
       </div>
     </motion.div>
   );
