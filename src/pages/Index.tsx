@@ -269,7 +269,7 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 bg-navy">
+      <section className="py-16 bg-navy" id="faq">
         <div className="container mx-auto px-4">
           <ScrollReveal>
             <div className="text-center mb-12">

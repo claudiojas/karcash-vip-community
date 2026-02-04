@@ -35,39 +35,32 @@ export const Footer = () => {
                 Links Rápidos
               </h4>
               <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
-                <a href="#" className="hover:text-foreground transition-colors">
+                <a href="/termos" className="hover:text-foreground transition-colors">
                   Termos de Uso
                 </a>
-                <a href="#" className="hover:text-foreground transition-colors">
+                <a href="/privacidade" className="hover:text-foreground transition-colors">
                   Política de Privacidade
                 </a>
-                <button 
-                  onClick={scrollToFAQ}
+                <a
+                  href="/#faq"
                   className="hover:text-foreground transition-colors"
                 >
                   Dúvidas Frequentes
-                </button>
+                </a>
               </div>
             </div>
 
             {/* Right - Social & Copyright */}
             <div className="flex flex-col items-center md:items-end gap-4">
               <div className="flex items-center gap-3">
-                <a 
-                  href="https://instagram.com" 
-                  target="_blank" 
+                <a
+                  href="https://www.instagram.com/karcashmotors/"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all"
+                  aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
-                </a>
-                <a 
-                  href="https://wa.me/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all"
-                >
-                  <MessageCircle className="w-5 h-5" />
                 </a>
               </div>
               <p className="text-sm text-muted-foreground">
