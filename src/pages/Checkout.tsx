@@ -49,49 +49,61 @@ const Checkout = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    setTimeout(() => toast.info("Processando sua inscrição..."), 0);
+    setTimeout(() => toast.info("Redirecionando para o pagamento seguro..."), 0);
 
     try {
-      // Chamada ao repositório para salvar no banco
+      // 1. Salva no Supabase (Status Pendente)
       await subscriptionRepository.createSubscription({
         name: values.name,
         email: values.email,
-        phone: values.phone.replace(/\D/g, ''), // Limpa a máscara antes de enviar
+        phone: values.phone.replace(/\D/g, ''),
       });
 
-      // A RPC foi bem-sucedida, tenta enviar o e-mail de boas-vindas via serviço
-      api.sendWelcomeEmail({
+      // 2. Monta a URL do Checkout Guru com Pre-fill
+      const baseUrl = "https://digitalmanager.guru/resources/checkout";
+      const params = new URLSearchParams({
+        lead: "9e3566631bbf40e3aa941fbc18f34d46",
+        utm_term: "subscribe",
         name: values.name,
-        email: values.email
-      }).then((response) => {
-        if (!response.success) {
-          console.error('Falha silenciosa no envio de e-mail:', response.error);
-        }
+        email: values.email,
+        phone_number: values.phone.replace(/\D/g, ''), // Guru geralmente usa 'phone_number' ou 'phone' - vou usar phone_number que é comum, mas se falhar ajustamos. Ou melhor, vou mandar os dois por garantia.
+        phone: values.phone.replace(/\D/g, '')
       });
 
-      setTimeout(() => {
-        toast.success("Inscrição processada! Verifique seu e-mail.");
-      }, 0);
-
-      setTimeout(() => {
-        navigate('/obrigado'); // Redireciona para a página de obrigado
-      }, 2000); // Aumentei um pouco o delay para dar tempo de ler o toast e processar o envio
+      // 3. Redireciona
+      // setTimeout(() => {
+      window.location.href = `${baseUrl}?${params.toString()}`;
+      // }, 1000);
 
     } catch (error) {
-      console.error('Erro ao chamar RPC ou inserir no Supabase:', error);
+      console.error('Erro ao salvar no Supabase:', error);
       const errorMessage = (error as any).message || "Ocorreu um erro desconhecido.";
 
       let friendlyMessage = "Ocorreu um erro ao processar sua inscrição.";
       if (errorMessage.includes("unique_profile_email")) {
-        friendlyMessage = "Este e-mail já está cadastrado em nosso sistema.";
+        // Se já existe, ainda assim mandamos pro checkout (recuperação de venda), 
+        // mas idealmente avisaríamos "E-mail já cadastrado".
+        // Para simplificar a conversão, vamos redirecionar igual, pois o Guru trata duplicidade ou o webhook atualiza.
+        // Mas para evitar erro de fluxo, vamos só redirecionar.
+
+        const baseUrl = "https://digitalmanager.guru/resources/checkout";
+        const params = new URLSearchParams({
+          lead: "9e3566631bbf40e3aa941fbc18f34d46",
+          utm_term: "subscribe",
+          name: values.name,
+          email: values.email,
+          phone: values.phone.replace(/\D/g, '')
+        });
+        window.location.href = `${baseUrl}?${params.toString()}`;
+        return;
       }
 
       setTimeout(() => {
         toast.error(friendlyMessage);
       }, 0);
-    } finally {
       setIsLoading(false);
     }
+    // Não setamos isLoading(false) no sucesso porque a página vai recarregar/mudar
   }
 
   return (

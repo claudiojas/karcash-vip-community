@@ -1,6 +1,22 @@
 # Histórico de Progresso - KarCash VIP
 
-## 📅 03/02/2026 - Pré-Lançamento: Legal & Compliance
+## 📅 03/02/2026 (Noite) - Integração de Pagamento (Guru)
+
+### Foco: Checkout Seguro & Baixa Manutenção
+Implementamos um fluxo de pagamento otimizado para não lidar com dados sensíveis e aumentar a conversão.
+
+### ✅ Entregas
+1.  **Integração Digital Manager Guru**:
+    -   **Checkout Redirect**: O formulário do site agora salva o lead como "Pendente" e o redireciona automaticamente para o checkout do Guru com os dados preenchidos (Nome, Email, Telefone).
+    -   **Zero Dados Sensíveis**: Cartão de crédito e dados bancários são processados 100% no ambiente seguro do Guru.
+2.  **Automação via Webhook**:
+    -   Endpoint `api/webhooks/guru.ts` criado.
+    -   Escuta eventos de `status: approved`.
+    -   Ativa a assinatura no Supabase e dispara o e-mail de boas-vindas automaticamente.
+
+---
+
+## 📅 03/02/2026 (Tarde) - Pré-Lançamento: Legal & Compliance
 
 ### Foco: Segurança Jurídica e Conversão
 Nesta etapa, focamos em blindar a operação juridicamente e melhorar a experiência de usuário nas páginas institucionais.
