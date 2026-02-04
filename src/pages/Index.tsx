@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { 
-  CreditCard, 
-  MessageCircle, 
-  TrendingUp, 
+import {
+  CreditCard,
+  MessageCircle,
+  TrendingUp,
   Shield,
   Zap,
   Calendar,
@@ -20,6 +20,8 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { PricingCard } from "@/components/PricingCard";
 import { FAQSection } from "@/components/FAQSection";
 import { HeroSection } from "@/components/HeroSection";
+import { OpportunitySection } from "@/components/OpportunitySection";
+
 
 const cars = [
   {
@@ -87,6 +89,12 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection />
+
+      <section className="py-16 bg-navy">
+        <div className="container mx-auto px-4">
+          <OpportunitySection />
+        </div>
+      </section>
 
       {/* Social Proof Stats */}
       <section className="py-16 bg-navy">
