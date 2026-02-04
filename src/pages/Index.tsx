@@ -21,6 +21,8 @@ import { PricingCard } from "@/components/PricingCard";
 import { FAQSection } from "@/components/FAQSection";
 import { HeroSection } from "@/components/HeroSection";
 import { OpportunitySection } from "@/components/OpportunitySection";
+import { FounderNote } from "@/components/FounderNote";
+
 
 
 import fiorinoImg from "@/assets/KARCASH_MODELOS/FIORINO_ENDURANCE/FIORINO_ENDURANCE.jpeg";
@@ -140,16 +142,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} delay={index * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Founder Note (Replacing Testimonials) */}
+      <FounderNote />
 
       {/* How It Works */}
       <section className="py-16 bg-navy">

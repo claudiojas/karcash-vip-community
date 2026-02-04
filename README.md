@@ -2,73 +2,86 @@
 
 Bem-vindo ao repositório da Landing Page de Acesso VIP do KarCash. Este projeto é a porta de entrada para a comunidade exclusiva de revendedores e investidores de automóveis que buscam as melhores oportunidades do mercado.
 
-O objetivo principal é converter visitantes em assinantes da comunidade VIP, que oferece acesso privilegiado a carros com margens de 20% a 50% abaixo da tabela FIPE.
+O objetivo principal é converter visitantes em assinantes da comunidade VIP, oferecendo acesso privilegiado a carros "limpos" (sem sinistro/leilão) com margens reais de 20% a 50% abaixo da tabela FIPE.
 
 ## 🛠️ Tecnologias Utilizadas
 
-Este projeto foi construído com uma stack moderna e performática, focada em uma excelente experiência de usuário e desenvolvimento ágil:
+Este projeto foi construído com uma stack moderna e performática:
 
--   **[Vite](https://vitejs.dev/)**: Build tool ultrarrápida para desenvolvimento frontend.
--   **[React](https://react.dev/)**: Biblioteca para construção de interfaces de usuário.
--   **[TypeScript](https://www.typescriptlang.org/)**: Superset do JavaScript que adiciona tipagem estática.
--   **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utility-first para estilização rápida e customizável.
--   **[Shadcn/UI](https://ui.shadcn.com/)**: Coleção de componentes de UI reusáveis.
--   **[Framer Motion](https://www.framer.com/motion/)**: Biblioteca para animações complexas e fluidas.
--   **[Lucide React](https://lucide.dev/)**: Biblioteca de ícones open-source.
--   **[Zod](https://zod.dev/)**: Biblioteca de validação de esquemas para TypeScript.
--   **[React Hook Form](https://react-hook-form.com/)**: Biblioteca para gerenciamento de formulários em React.
--   **[React Input Mask](https://github.com/sanniassin/react-input-mask)**: Componente de máscara de input para React.
+### Frontend
+-   **[Vite](https://vitejs.dev/)**: Build tool ultrarrápida.
+-   **[React](https://react.dev/)**: Biblioteca de UI.
+-   **[TypeScript](https://www.typescriptlang.org/)**: Tipagem estática.
+-   **[Tailwind CSS](https://tailwindcss.com/)**: Estilização utility-first.
+-   **[Framer Motion](https://www.framer.com/motion/)**: Animações fluidas.
+-   **[React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)**: Formulários e validação robusta.
 
-## ⚙️ Como Executar o Projeto Localmente
+### Backend & Integrações
+-   **[Supabase](https://supabase.com/)**: Database (PostgreSQL) e Autenticação.
+-   **[Vercel Serverless Functions](https://vercel.com/docs/functions)**: API para envio de e-mails (`api/send-welcome-email.ts`).
+-   **[Resend](https://resend.com/)**: Serviço de e-mail transacional.
 
-Para executar o projeto em seu ambiente de desenvolvimento local, siga os passos abaixo.
+## 🏗️ Arquitetura do Projeto
 
-**Pré-requisitos:**
-*   **Node.js**: Versão 18 ou superior.
-*   **npm** ou **yarn** ou **pnpm**.
-
-**Passos:**
-
-1.  **Clone o repositório:**
-    ```sh
-    git clone https://github.com/claudiojas/karcash-vip-access.git
-    ```
-
-2.  **Navegue até o diretório do projeto:**
-    ```sh
-    cd karcash-vip-access
-    ```
-
-3.  **Instale as dependências:**
-    ```sh
-    npm install
-    ```
-
-4.  **Inicie o servidor de desenvolvimento:**
-    ```sh
-    npm run dev
-    ```
-
-Após executar o último comando, o servidor de desenvolvimento será iniciado e você poderá acessar a aplicação em `http://localhost:5173` (ou outra porta, se a 5173 estiver em uso).
-
-## 📁 Estrutura de Pastas
-
-A estrutura de pastas do projeto segue as melhores práticas para aplicações React, visando a modularidade e escalabilidade:
+O projeto segue uma arquitetura limpa e desacoplada para garantir escalabilidade:
 
 ```
 /
-├── public/           # Arquivos estáticos e assets públicos
+├── api/                  # Serverless Functions (Node.js)
+│   └── send-welcome-email.ts  # Envio de e-mails via Resend
 ├── src/
-│   ├── assets/         # Imagens, fontes e outros assets do projeto
-│   ├── components/     # Componentes React reutilizáveis (UI, layout, etc.)
-│   ├── hooks/          # Hooks customizados do React
-│   ├── lib/            # Funções utilitárias e configurações de bibliotecas
-│   ├── pages/          # Componentes que representam as páginas da aplicação
-│   ├── App.tsx         # Componente principal que gerencia as rotas
-│   └── main.tsx        # Ponto de entrada da aplicação
-├── tailwind.config.ts  # Configurações do Tailwind CSS
-└── vite.config.ts      # Configurações do Vite
+│   ├── assets/           # Imagens e dados reais dos carros (KARCASH_MODELOS)
+│   ├── components/       # Componentes React reutilizáveis
+│   ├── pages/            # Páginas (Index, Checkout, Success)
+│   ├── repositories/     # Camada de acesso a dados (Supabase)
+│   │   └── subscriptionRepository.ts
+│   ├── services/         # Camada de serviços externos (API)
+│   │   └── api.ts
+│   └── lib/              # Configurações (Supabase Client, Utils)
 ```
 
+### Padrões Usados
+-   **Repository Pattern:** `subscriptionRepository.ts` isola toda a comunicação com o Supabase. O frontend não chama `supabase` diretamente.
+-   **Service Layer:** `api.ts` centraliza as chamadas para APIs externas (como a nossa API de e-mail), tratando erros de forma padronizada.
+
+## ⚙️ Como Executar o Projeto Localmente
+
+**Pré-requisitos:** Node.js (v18+) e NPM/Yarn.
+
+1.  **Clone e Instale:**
+    ```bash
+    git clone https://github.com/claudiojas/karcash-vip-access.git
+    cd karcash-vip-access
+    npm install
+    ```
+
+2.  **Configure as Variáveis de Ambiente:**
+    Crie um arquivo `.env` na raiz:
+    ```env
+    VITE_SUPABASE_URL=sua_url_supabase
+    VITE_SUPABASE_ANON_KEY=sua_key_anon
+    RESEND_API_KEY=re_123... (Necessário para testar e-mail via Vercel CLI)
+    ```
+
+3.  **Rodar Frontend (Vite):**
+    ```bash
+    npm run dev
+    ```
+    *Acesse em `http://localhost:5173`.*
+
+4.  **Rodar API Serverless (Opcional):**
+    Para testar o envio de e-mail localmente, você precisa do Vercel CLI:
+    ```bash
+    npx vercel dev
+    ```
+
+## 🧠 Estratégia de Copywriting (Gatilhos Mentais)
+
+A Landing Page foi otimizada com 21 gatilhos mentais para alta conversão, focada na proposta de valor única: **"Carros abaixo da FIPE sem histórico de Leilão/Sinistro"**.
+
+-   **Hero Section:** Ativa *Curiosidade*, *Promessa* e *Exclusividade*.
+-   **Seção "O Segredo":** Usa *Dissonância Cognitiva* (Leilão é ruim) e *Razão e Porquê*.
+-   **Cards de Ofertas:** Utiliza *Ancoragem de Preço* e *Especifidade* (Lucro Exato).
+
 ---
-*Este README foi gerado e atualizado pela Gemi em 27/01/2026.*
+*Atualizado em 04/02/2026.*
