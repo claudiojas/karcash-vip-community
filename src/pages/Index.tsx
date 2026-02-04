@@ -235,14 +235,14 @@ const Index = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
               <ScrollReveal key={index} delay={index * 0.05}>
-                <div className="card-elevated flex items-center gap-4 p-4 md:p-5">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <div className="card-elevated flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-3 md:gap-4 p-4 md:p-5 h-full justify-center md:justify-start">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                     {benefit.icon}
                   </div>
-                  <span className="text-foreground font-medium text-sm md:text-base">
+                  <span className="text-foreground font-medium text-xs md:text-base leading-tight">
                     {benefit.title}
                   </span>
                 </div>
