@@ -1,0 +1,31 @@
+# Histórico de Progresso - KarCash VIP
+
+## 📅 03/02/2026 - Pré-Lançamento: Legal & Compliance
+
+### Foco: Segurança Jurídica e Conversão
+Nesta etapa, focamos em blindar a operação juridicamente e melhorar a experiência de usuário nas páginas institucionais.
+
+### ✅ Entregas
+1.  **Termos de Uso Robustos**:
+    -   Implementação de cláusulas de **Curadoria** (limitando responsabilidade sobre veículos).
+    -   Proteção de **Propriedade Intelectual** e proibição de rateio.
+    -   Inclusão de cláusula **Anti-Abuso** (Art. 187 CC) contra "Hit and Run".
+    -   Definição de Foro (São Paulo/SP).
+2.  **Política de Privacidade**:
+    -   Adequação à LGPD.
+    -   Clareza na coleta e uso de dados.
+3.  **Melhorias de UX/UI**:
+    -   Refinamento tipográfico nas páginas legais (espaçamento e legibilidade).
+    -   Criação de botões de navegação intuitivos no rodapé dessas páginas.
+    -   Ajuste no Footer global (remoção de WhatsApp, fixação de links).
+
+### 🔜 Próximos Passos
+-   Pesquisa e definição de Gateway de Pagamento.
+-   Implementação do Checkout real.
+
+---
+
+## 📅 01/02/2026 - Sprint de Conversão (Copywriting)
+-   Implementação de 21 gatilhos mentais na Landing Page.
+-   Substituição de dados fictícios por carros reais (Fiorino, Nivus, etc.).
+-   Criação da "Carta do Fundador" e seção "O Segredo".
