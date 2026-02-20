@@ -9,8 +9,8 @@
 @layer base {
   :root {
     /* Core Brand Colors - KarCash Visual Identity */
-    /* --background: 176 80% 7%; */
-    --background: 105 83% 5.5%;
+    --background: 176 80% 9%;
+    /* --background: 105 83% 5.5%; */
     /* Quase preto para o fundo */
     --foreground: 0 0% 98%;
     /* Branco para textos */

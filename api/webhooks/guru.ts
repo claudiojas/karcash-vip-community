@@ -6,7 +6,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL!,
-    process.env.VITE_SUPABASE_ANON_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY!
 );
 
 export default async function handler(
@@ -43,6 +43,9 @@ export default async function handler(
 
         // 1. Atualizar Status no Supabase
         // Primeiro buscamos o profile pelo email
+        console.log('Searching for profile with email:', email);
+        console.log('Using Service Key?', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
+
         const { data: profile, error: profileError } = await supabase
             .from('profiles')
             .select('id')

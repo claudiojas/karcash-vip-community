@@ -60,13 +60,11 @@ const Checkout = () => {
       });
 
       // 2. Monta a URL do Checkout Guru com Pre-fill
-      const baseUrl = "https://digitalmanager.guru/resources/checkout";
+      const baseUrl = import.meta.env.VITE_GURU_CHECKOUT_URL;
       const params = new URLSearchParams({
-        lead: "9e3566631bbf40e3aa941fbc18f34d46",
-        utm_term: "subscribe",
         name: values.name,
         email: values.email,
-        phone_number: values.phone.replace(/\D/g, ''), // Guru geralmente usa 'phone_number' ou 'phone' - vou usar phone_number que é comum, mas se falhar ajustamos. Ou melhor, vou mandar os dois por garantia.
+        phone_number: values.phone.replace(/\D/g, ''),
         phone: values.phone.replace(/\D/g, '')
       });
 
@@ -86,10 +84,8 @@ const Checkout = () => {
         // Para simplificar a conversão, vamos redirecionar igual, pois o Guru trata duplicidade ou o webhook atualiza.
         // Mas para evitar erro de fluxo, vamos só redirecionar.
 
-        const baseUrl = "https://digitalmanager.guru/resources/checkout";
+        const baseUrl = import.meta.env.VITE_GURU_CHECKOUT_URL;
         const params = new URLSearchParams({
-          lead: "9e3566631bbf40e3aa941fbc18f34d46",
-          utm_term: "subscribe",
           name: values.name,
           email: values.email,
           phone: values.phone.replace(/\D/g, '')

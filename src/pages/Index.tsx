@@ -29,6 +29,7 @@ import fiorinoImg from "@/assets/KARCASH_MODELOS/FIORINO_ENDURANCE/FIORINO_ENDUR
 import nivusImg from "@/assets/KARCASH_MODELOS/NIVUS_2024/NIVUS_2024.jpeg";
 import poloImg from "@/assets/KARCASH_MODELOS/POLO_2024/POLO_2024.jpeg";
 import betoneiraImg from "@/assets/KARCASH_MODELOS/VW26.2602023_BETONEIRA/VW26.2602023_BETONEIRA.jpeg";
+import { Journey } from "@/components/Journey";
 
 const cars = [
   {
@@ -61,26 +62,6 @@ const cars = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Carlos Mendes",
-    role: "Revendedor há 2 anos",
-    content: "Já comprei 15 carros pelo grupo. Lucro médio de R$ 12.000 por veículo. Melhor investimento que já fiz.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
-  },
-  {
-    name: "Ana Paula Silva",
-    role: "Investidora",
-    content: "Comecei há 3 meses e já recuperei o investimento 10x. As ofertas são reais e os carros são excelentes!",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
-  },
-  {
-    name: "Roberto Oliveira",
-    role: "Empresário",
-    content: "Nunca pensei que fosse tão simples lucrar com carros. A curadoria é impecável. Recomendo demais!",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
-  },
-];
 
 const benefits = [
   { icon: <Calendar className="w-6 h-6" />, title: "+300 ofertas por mês" },
@@ -96,6 +77,16 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <HeroSection />
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        {cars.map((car, index) => (
+          <ScrollReveal key={index} delay={index * 0.1}>
+            <CarCard {...car} />
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <Journey />
 
       <section className="py-16 bg-navy">
         <div className="container mx-auto px-4">
@@ -145,44 +136,6 @@ const Index = () => {
       {/* Founder Note (Replacing Testimonials) */}
       <FounderNote />
 
-      {/* How It Works */}
-      <section className="py-16 bg-navy">
-        <div className="container mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">
-                Sua Jornada de Lucro em{" "}
-                <span className="text-primary">3 Passos Simples</span>
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <StepCard
-              number={1}
-              title="Assine"
-              description="Garanta seu acesso exclusivo à comunidade KarCash por apenas R$ 49,94/mês."
-              icon={<CreditCard className="w-8 h-8" />}
-              delay={0}
-            />
-            <StepCard
-              number={2}
-              title="Receba"
-              description="Acesse diariamente 10 ofertas de carros até 50% abaixo da tabela FIPE."
-              icon={<MessageCircle className="w-8 h-8" />}
-              delay={0.1}
-            />
-            <StepCard
-              number={3}
-              title="Lucre"
-              description="Negocie direto e coloque o lucro no seu bolso. Simples assim."
-              icon={<TrendingUp className="w-8 h-8" />}
-              delay={0.2}
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Car Offers */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -198,13 +151,13 @@ const Index = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             {cars.map((car, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
                 <CarCard {...car} />
               </ScrollReveal>
             ))}
-          </div>
+          </div> */}
 
           <div className="text-center">
             <a href="/checkout">
