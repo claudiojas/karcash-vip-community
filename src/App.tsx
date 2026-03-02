@@ -10,6 +10,7 @@ import Success from "./pages/Success";
 import NotFound from "./pages/NotFound";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import SellCar from "./pages/SellCar";
 
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/obrigado" element={<Success />} />
+            <Route path="/vender" element={<SellCar />} />
           </Route>
           <Route path="/termos" element={<Terms />} />
           <Route path="/privacidade" element={<Privacy />} />

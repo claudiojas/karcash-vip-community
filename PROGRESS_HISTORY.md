@@ -1,47 +1,66 @@
 # Histórico de Progresso - KarCash VIP
 
+## 📅 02/03/2026 - Sprint de Escala e Infraestrutura
+### Foco: Conversão Máxima e Ecossistema de Geração de Renda
+
+Implementamos as mudanças fundamentais para transformar o KarCash em um ecossistema completo de lucro automotivo e preparamos a base para o futuro Marketplace.
+
+### ✅ Entregas
+1.  **Conversão Máxima (AIDA Flow)**:
+    -   Landing Page totalmente reorganizada seguindo o fluxo psicológico: **Atenção -> Interesse -> Desejo -> Ação**.
+    -   Subimos a seção de **Preço/Oferta** para o pico emocional (após a Carta do Fundador).
+2.  **Novas Formas de Lucro (Profit Paths)**:
+    -   Seção "3 Formas de Lucrar" criada:
+        -   **Afiliados:** 10% de comissão recorrente.
+        -   **Dropshipping:** R$ 1.000 de margem por intermediação de anúncios.
+        -   **Investidor de Elite:** Alta margem (R$ 10k-50k) com carros avariados.
+3.  **Página Dedicada de Captação de Estoque (`/vender`)**:
+    -   Migração do formulário de modal para uma página profissional exclusiva.
+    -   Captação detalhada de leads de vendedores (Modelo, Ano, Avarias, Contato).
+    -   Aumento da percepção de autoridade e segurança para o vendedor.
+
+### 🚀 Decisões Estratégicas (Backend Revision)
+-   **Migração para Vercel Postgres (Neon)**: Saída da dependência direta do frontend com Supabase para uma arquitetura mais robusta.
+-   **Nova Stack de API:** Decisão de implementar o backend em **Node.js + Fastify + Prisma**.
+-   **Visão de Futuro:** Infraestrutura preparada para suportar o **Marketplace de Veículos Avariados**, permitindo transações complexas e maior controle de segurança.
+
+---
+
 ## 📅 03/02/2026 (Noite) - Integração de Pagamento (Guru)
 
 ### Foco: Checkout Seguro & Baixa Manutenção
-Implementamos um fluxo de pagamento otimizado para não lidar com dados sensíveis e aumentar a conversão.
+
+O sistema agora é capaz de receber pagamentos via Pix ou Cartão e liberar o acesso VIP instantaneamente.
 
 ### ✅ Entregas
-1.  **Integração Digital Manager Guru**:
-    -   **Checkout Redirect**: O formulário do site agora salva o lead como "Pendente" e o redireciona automaticamente para o checkout do Guru com os dados preenchidos (Nome, Email, Telefone).
+1.  **Parceria com GURU**:
+    -   Usando o checkout transparente do Guru para evitar atritos.
     -   **Zero Dados Sensíveis**: Cartão de crédito e dados bancários são processados 100% no ambiente seguro do Guru.
 2.  **Automação via Webhook**:
     -   Endpoint `api/webhooks/guru.ts` criado.
     -   Escuta eventos de `status: approved`.
     -   Ativa a assinatura no Supabase e dispara o e-mail de boas-vindas automaticamente.
+3.  **Fluxo de Sucesso**:
+    -   Página `/obrigado` criada para redirecionamento após a compra, orientando o usuário para o Grupo VIP no Telegram.
 
 ---
 
-## 📅 03/02/2026 (Tarde) - Pré-Lançamento: Legal & Compliance
+## 📅 03/02/2026 (Manhã) - Layout & Design System
 
-### Foco: Segurança Jurídica e Conversão
-Nesta etapa, focamos em blindar a operação juridicamente e melhorar a experiência de usuário nas páginas institucionais.
+### Foco: Mobile-First e Identidade Visual High-End
+
+Estabelecemos as bases visuais do projeto KarCash.
 
 ### ✅ Entregas
-1.  **Termos de Uso Robustos**:
-    -   Implementação de cláusulas de **Curadoria** (limitando responsabilidade sobre veículos).
-    -   Proteção de **Propriedade Intelectual** e proibição de rateio.
-    -   Inclusão de cláusula **Anti-Abuso** (Art. 187 CC) contra "Hit and Run".
-    -   Definição de Foro (São Paulo/SP).
-2.  **Política de Privacidade**:
-    -   Adequação à LGPD.
-    -   Clareza na coleta e uso de dados.
-3.  **Melhorias de UX/UI**:
-    -   Refinamento tipográfico nas páginas legais (espaçamento e legibilidade).
-    -   Criação de botões de navegação intuitivos no rodapé dessas páginas.
-    -   Ajuste no Footer global (remoção de WhatsApp, fixação de links).
-
-### 🔜 Próximos Passos
--   Pesquisa e definição de Gateway de Pagamento.
--   Implementação do Checkout real.
+1.  **Design System (index.css)**:
+    -   Cores: Verde Neon (energia), Azul Marinho/Preto (sofisticação) e Laranja (CTA).
+    -   Tipografia: MontSerrat (Display) e Inter (Body).
+2.  **Componentes Core**:
+    -   `PricingCard`: Card de assinatura elegante com destaque para o plano anual.
+    -   `CarCard`: Vitrine de ofertas simulando as reais da comunidade.
+    -   `Stats`: Prova social numérica com animação de contador.
+3.  **Landing Page v1**:
+    -   Hero section com fundo de vídeo/gradiente dinâmico.
+    -   Layout totalmente responsivo.
 
 ---
-
-## 📅 01/02/2026 - Sprint de Conversão (Copywriting)
--   Implementação de 21 gatilhos mentais na Landing Page.
--   Substituição de dados fictícios por carros reais (Fiorino, Nivus, etc.).
--   Criação da "Carta do Fundador" e seção "O Segredo".

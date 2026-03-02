@@ -2,11 +2,11 @@
 
 Bem-vindo ao repositório da Landing Page de Acesso VIP do KarCash. Este projeto é a porta de entrada para a comunidade exclusiva de revendedores e investidores de automóveis que buscam as melhores oportunidades do mercado.
 
-O objetivo principal é converter visitantes em assinantes da comunidade VIP, oferecendo acesso privilegiado a carros "limpos" (sem sinistro/leilão) com margens reais de 20% a 50% abaixo da tabela FIPE.
+O objetivo principal é converter visitantes em assinantes da comunidade VIP, oferecendo acesso privilegiado a carros "limpos" (sem sinistro/leilão) com margens reais de 20% a 50% abaixo da tabela FIPE, além de múltiplas formas de geração de renda.
 
 ## 🛠️ Tecnologias Utilizadas
 
-Este projeto foi construído com uma stack moderna e performática:
+Este projeto foi construído com uma stack moderna e performática, preparada para escala:
 
 ### Frontend
 -   **[Vite](https://vitejs.dev/)**: Build tool ultrarrápida.
@@ -16,10 +16,12 @@ Este projeto foi construído com uma stack moderna e performática:
 -   **[Framer Motion](https://www.framer.com/motion/)**: Animações fluidas.
 -   **[React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)**: Formulários e validação robusta.
 
-### Backend & Integrações
--   **[Supabase](https://supabase.com/)**: Database (PostgreSQL) e Autenticação.
--   **[Vercel Serverless Functions](https://vercel.com/docs/functions)**: API para envio de e-mails (`api/send-welcome-email.ts`).
+### Backend & Infraestrutura (Evolução em curso)
+-   **[Vercel Postgres (Neon)](https://neon.tech/)**: Banco de dados PostgreSQL Serverless de alta performance.
+-   **[Prisma ORM](https://www.prisma.io/)**: Type-safe database client para garantir integridade dos dados.
+-   **[Node.js + Fastify](https://www.fastify.io/)**: Framework de API ultrarrápido para suportar o futuro marketplace.
 -   **[Resend](https://resend.com/)**: Serviço de e-mail transacional.
+-   **[Supabase](https://supabase.com/)**: Utilizado inicialmente para Auth e Database (migrando lógica para a API dedicada).
 
 ## 🏗️ Arquitetura do Projeto
 
@@ -27,22 +29,22 @@ O projeto segue uma arquitetura limpa e desacoplada para garantir escalabilidade
 
 ```
 /
-├── api/                  # Serverless Functions (Node.js)
-│   └── send-welcome-email.ts  # Envio de e-mails via Resend
+├── api/                  # Serverless Functions & API Routes
 ├── src/
-│   ├── assets/           # Imagens e dados reais dos carros (KARCASH_MODELOS)
-│   ├── components/       # Componentes React reutilizáveis
-│   ├── pages/            # Páginas (Index, Checkout, Success)
-│   ├── repositories/     # Camada de acesso a dados (Supabase)
-│   │   └── subscriptionRepository.ts
+│   ├── assets/           # Imagens e dados reais dos carros
+│   ├── components/       # Componentes React reutilizáveis (Hero, SellerLead, etc)
+│   ├── pages/            # Páginas (Index, SellCar, Checkout, Success)
+│   ├── repositories/     # Camada de acesso a dados
 │   ├── services/         # Camada de serviços externos (API)
-│   │   └── api.ts
-│   └── lib/              # Configurações (Supabase Client, Utils)
+│   └── lib/              # Configurações (DB Client, Utils)
 ```
 
-### Padrões Usados
--   **Repository Pattern:** `subscriptionRepository.ts` isola toda a comunicação com o Supabase. O frontend não chama `supabase` diretamente.
--   **Service Layer:** `api.ts` centraliza as chamadas para APIs externas (como a nossa API de e-mail), tratando erros de forma padronizada.
+## 🌟 Diferenciais e Funcionalidades
+
+-   **Fluxo de Conversão AIDA:** Landing Page estruturada psicologicamente para guiar o usuário da Atenção à Ação.
+-   **3 Formas de Lucrar:** Segmentação clara para Afiliados, Dropshippers e Investidores de Elite.
+-   **Captação de Estoque Profissional:** Página `/vender` dedicada para aquisição de veículos avariados diretamente com leads qualificados.
+-   **Checkout Transparente:** Integração com Guru para máxima segurança e conversão no pagamento.
 
 ## ⚙️ Como Executar o Projeto Localmente
 
@@ -56,12 +58,7 @@ O projeto segue uma arquitetura limpa e desacoplada para garantir escalabilidade
     ```
 
 2.  **Configure as Variáveis de Ambiente:**
-    Crie um arquivo `.env` na raiz:
-    ```env
-    VITE_SUPABASE_URL=sua_url_supabase
-    VITE_SUPABASE_ANON_KEY=sua_key_anon
-    RESEND_API_KEY=re_123... (Necessário para testar e-mail via Vercel CLI)
-    ```
+    Crie um arquivo `.env` na raiz seguindo o modelo das ferramentas (Supabase/Neon/Resend).
 
 3.  **Rodar Frontend (Vite):**
     ```bash
@@ -69,19 +66,14 @@ O projeto segue uma arquitetura limpa e desacoplada para garantir escalabilidade
     ```
     *Acesse em `http://localhost:5173`.*
 
-4.  **Rodar API Serverless (Opcional):**
-    Para testar o envio de e-mail localmente, você precisa do Vercel CLI:
-    ```bash
-    npx vercel dev
-    ```
-
 ## 🧠 Estratégia de Copywriting (Gatilhos Mentais)
 
-A Landing Page foi otimizada com 21 gatilhos mentais para alta conversão, focada na proposta de valor única: **"Carros abaixo da FIPE sem histórico de Leilão/Sinistro"**.
+A Landing Page foi otimizada com gatilhos mentais para alta conversão:
 
+-   **Profit Paths:** Segue a técnica de *Segmentação de Público*, atraindo diversos perfis de investidores.
 -   **Hero Section:** Ativa *Curiosidade*, *Promessa* e *Exclusividade*.
 -   **Seção "O Segredo":** Usa *Dissonância Cognitiva* (Leilão é ruim) e *Razão e Porquê*.
 -   **Cards de Ofertas:** Utiliza *Ancoragem de Preço* e *Especifidade* (Lucro Exato).
 
 ---
-*Atualizado em 04/02/2026.*
+*Atualizado em 02/03/2026 por Gemi (Desenvolvedora Senior & Strategista).*
